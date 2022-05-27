@@ -1,0 +1,10 @@
+Make,Model,CC,Sales,YearofSales,City,Type,FuelType
+Hyundai,Creta,1500,3000,2012,Bangalore,SUV,Petrol
+Honda,City,1300,4000,2019,Mumbai,Sedan,Diesel
+Toyota,Innova,1700,2200,2012,Hyderabad,SUV,Petrol
+Suzuki,Ertiga,1600,1400,2017,Mumbai,SUV,Diesel
+Hyundai,i20,1550,3420,2017,Bangalore,Hatchback,Diesel
+Honda,Jazz,1650,4320,2019,Hyderabad,Hatchback,Petrol
+Toyota,Etios,1750,1289,2012,Delhi,Sedan,Diesel
+Suzuki,Ritz,1500,2113,2019,Delhi,Hatchback,Petrol
+
