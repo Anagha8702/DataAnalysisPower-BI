@@ -1,6 +1,0 @@
-flask
-requests
-msal
-pandas
-numpy
-gunicorn
