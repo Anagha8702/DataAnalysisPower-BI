@@ -1,5 +1,3 @@
-# Copyright (c) Microsoft Corporation.
-# Licensed under the MIT license.
 
 from operator import le
 import re
@@ -45,9 +43,8 @@ def dict1(df):
 
 @app.route('/')
 def index():
-    '''Returns the login HTML page'''
     return render_template('check.html')
-
+   
 @app.route('/getembedinfo', methods=['GET'])
 def get_embed_info():
     '''Returns report embed configuration'''
@@ -71,139 +68,134 @@ def getfavicon():
 @app.route('/form_login', methods=['POST','GET'])
 def login():
     print("Here")
-    if request.form['switch']=="123":
-        f=request.files['file']
-        print("hey i got in")
-        global x1,y1,x2,y2,x3,y3,x4,p,di
-        f.save(os.path.join(os.path.abspath(os.path.dirname(__file__)),app.config['UPLOAD_FOLDER'],f.filename)) # saving the file
-        global df
-        df = pd.read_csv(os.path.join(os.path.abspath(os.path.dirname(__file__)),app.config['UPLOAD_FOLDER'],f.filename))
-        Labels=Lab(df)
-        global Dataset
-        Dataset=Dat(df)
-      
-        index=0
-        global d
-        d=dict1(df)
-        list1=[]
-        global data
-        data=df
-        global le
-        le=len(df)
-        return render_template('temp1.html',df1=df,d=d,Labels=Labels,Dataset=Dataset,list1=list1,x1=x1,y1=y1,x2=x2,y2=y2,x3=x3,y3=y3,x4=x4,p=p,di=di)
-    elif request.form['switch']=="456":
-        name=request.form['u']
-        psd1=request.form['v']
-        print(name+" "+psd1)
-        if name != "user":
-            return render_template('check.html',info="Invalid User!")
-        elif psd1 != "user":
-            return render_template('check.html',info="Invalid Password!")
-        else:
-            df=[]
+    if request.method=='POST':
+        if request.form['switch']=="123":
+            f=request.files['file']
+            print("hey i got in")
+            global x1,y1,x2,y2,x3,y3,x4,p,di
+            f.save(os.path.join(os.path.abspath(os.path.dirname(__file__)),app.config['UPLOAD_FOLDER'],f.filename)) # saving the file
+            global df
+            df = pd.read_csv(os.path.join(os.path.abspath(os.path.dirname(__file__)),app.config['UPLOAD_FOLDER'],f.filename))
+            Labels=Lab(df)
+            global Dataset
+            Dataset=Dat(df)
+            index=0
+            global d
+            d=dict1(df)
             list1=[]
-            global list2
+            global data
+            data=df
+            global le
+            le=len(df)
+            return render_template('temp1.html',df1=df,d=d,Labels=Labels,Dataset=Dataset,list1=list1,x1=x1,y1=y1,x2=x2,y2=y2,x3=x3,y3=y3,x4=x4,p=p,di=di)
+        elif request.form['switch']=="456":
+            name=request.form['u']
+            psd1=request.form['v']
+            print(name+" "+psd1)
+            if name != "user":
+                return render_template('check.html',info="Invalid User!")
+            elif psd1 != "user":
+                return render_template('check.html',info="Invalid Password!")
+            else:
+                df=[]
+                list1=[]
+                global list2
+                list2=[]
+                global x
+                x = pd.read_csv(os.path.join(os.path.abspath(os.path.dirname(__file__)),app.config['SALES'],"sale.csv"))
+                l1=set()
+                l2=[]
+                for i in x['City']:
+                    l1.add(i)
+                for j in l1:
+                    l2.append(0)
+                l1=list(l1)
+                for i in range(len(x)):
+                        for j in range(0,len(l1)):
+                            if x['City'][i]==l1[j]:
+                                l2[j]+=x['Sales'][i]
+                x1=l1
+                y1=l2
+                l1=set()
+                l2=[]
+                for i in x['Make']:
+                    l1.add(i)
+                for j in l1:
+                    l2.append(0)
+                l1=list(l1)
+                for i in range(len(x)):
+                        for j in range(0,len(l1)):
+                            if x['Make'][i]==l1[j]:
+                                l2[j]+=x['Sales'][i]
+            
+                x2=l1
+                y2=l2
+                l1=set()
+                l2=[]
+                for i in x['YearofSales']:
+                    l1.add(i)
+                for j in l1:
+                    l2.append(0)
+                l1=list(l1)
+                for i in range(len(x)):
+                        for j in range(0,len(l1)):
+                            if x['YearofSales'][i]==l1[j]:
+                                l2[j]+=x['Sales'][i]
+            
+                x3=l1
+                y3=l2
+                l1=set()
+                p=[]
+                di=[]
+                for i in x['City']:
+                    l1.add(i)
+                for j in l1:
+                    p.append(0)
+                    di.append(0)
+                l1=list(l1)
+                for i in range(len(x)):
+                        for j in range(0,len(l1)):
+                            if x['City'][i]==l1[j]:
+                                if x['FuelType'][i]=='Petrol':
+                                    p[j]+=x['Sales'][i]
+                                else:
+                                    di[j]+=x['Sales'][i]
+            
+                x4=l1
+                return render_template('temp.html',df1=df,list1=list1,list2=list2,x=x,x1=x1,y1=y1,x2=x2,y2=y2,x3=x3,y3=y3,x4=x4,p=p,di=di)
+        elif request.form['switch']=='goback':
+            list1=[]
             list2=[]
-            x = pd.read_csv(os.path.join(os.path.abspath(os.path.dirname(__file__)),app.config['SALES'],"sale.csv"))
+            return render_template('temp.html',df1=df,list1=list1,list2=list2,x1=x1,y1=y1,x2=x2,y2=y2,x3=x3,y3=y3,x4=x4,p=p,di=di)
+        elif request.form['switch']=="graph":
+            X=request.form['Label']
+            Y=request.form['Dataset']
+            list1=[]
+            list2=[]
+            l1=df[X]
+            l2=df[Y]
+            for i in l1:
+                list1.append(i)
+            for i in l2:
+                list2.append(i)      
             l1=set()
             l2=[]
-            for i in x['City']:
+            for i in list1:
                 l1.add(i)
             for j in l1:
                 l2.append(0)
             l1=list(l1)
-            for i in range(len(x)):
+            for i in range(len(df)):
                     for j in range(0,len(l1)):
-                        if x['City'][i]==l1[j]:
-                            l2[j]+=x['Sales'][i]
-           
-           
-            x1=l1
-            y1=l2
-            l1=set()
-            l2=[]
-            for i in x['Make']:
-                l1.add(i)
-            for j in l1:
-                l2.append(0)
-            l1=list(l1)
-            for i in range(len(x)):
-                    for j in range(0,len(l1)):
-                        if x['Make'][i]==l1[j]:
-                            l2[j]+=x['Sales'][i]
-          
-            x2=l1
-            y2=l2
-            l1=set()
-            l2=[]
-            for i in x['YearofSales']:
-                l1.add(i)
-            for j in l1:
-                l2.append(0)
-            l1=list(l1)
-            for i in range(len(x)):
-                    for j in range(0,len(l1)):
-                        if x['YearofSales'][i]==l1[j]:
-                            l2[j]+=x['Sales'][i]
-         
-            x3=l1
-            y3=l2
-            l1=set()
-            p=[]
-            di=[]
-            for i in x['City']:
-                l1.add(i)
-            for j in l1:
-                p.append(0)
-                di.append(0)
-            l1=list(l1)
-            for i in range(len(x)):
-                    for j in range(0,len(l1)):
-                        if x['City'][i]==l1[j]:
-                            if x['FuelType'][i]=='Petrol':
-                                p[j]+=x['Sales'][i]
-                            else:
-                                di[j]+=x['Sales'][i]
-           
-            x4=l1
-            return render_template('temp.html',df1=df,list1=list1,list2=list2,x=x,x1=x1,y1=y1,x2=x2,y2=y2,x3=x3,y3=y3,x4=x4,p=p,di=di)
-    elif request.form['switch']=='goback':
+                        if df.iat[i,d[X]]==l1[j]:
+                            l2[j]+=df.iat[i,d[Y]]
+    
+            return render_template('temp1.html',list1=l1,list2=l2,X=X,Y=Y,df1=df,x1=x1,y1=y1,x2=x2,y2=y2,x3=x3,y3=y3,x4=x4,p=p,di=di)
+    else:
+        df=[]
         list1=[]
         list2=[]
         return render_template('temp.html',df1=df,list1=list1,list2=list2,x1=x1,y1=y1,x2=x2,y2=y2,x3=x3,y3=y3,x4=x4,p=p,di=di)
-    elif request.form['switch']=="graph":
-       
-        X=request.form['Label']
-        Y=request.form['Dataset']
-      
-        list1=[]
-        list2=[]
-        l1=df[X]
-        l2=df[Y]
-        for i in l1:
-            list1.append(i)
-        for i in l2:
-            list2.append(i)
-
-        '''for i in range(len(df)):
-            list1.append(data[i][X])
-            list2.append(data[i][Y])'''
-      
-        l1=set()
-        l2=[]
-        for i in list1:
-            l1.add(i)
-        for j in l1:
-            l2.append(0)
-        l1=list(l1)
-        for i in range(len(df)):
-                for j in range(0,len(l1)):
-                    if df.iat[i,d[X]]==l1[j]:
-                        l2[j]+=df.iat[i,d[Y]]
-   
-        return render_template('temp1.html',list1=l1,list2=l2,X=X,Y=Y,df1=df,x1=x1,y1=y1,x2=x2,y2=y2,x3=x3,y3=y3,x4=x4,p=p,di=di)
-
-    
 
 if __name__ == '__main__':
     app.run()

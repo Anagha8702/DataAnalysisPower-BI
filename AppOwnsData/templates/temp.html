@@ -1,17 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <link rel="icon" href="https://freeiconshop.com/wp-content/uploads/edd/car-flat.png" type="image/x-icon">
+  <link rel="icon" href="{{ url_for('static', filename='img/icon.png') }}" type="image/x-icon">
   <title>Cars Forever</title>
   <meta charset="utf-8">
+  <meta name="description" content="Car Data Analysis - Power BI">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
   <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet" type="text/css">
   <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet" type="text/css">
   <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
-  <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.1/chart.js" integrity="sha512-Lii3WMtgA0C0qmmkdCpsG0Gjr6M0ajRyQRQSbTF6BsrVh/nhZdHpVZ76iMIPvQwz1eoXC3DmAg9K51qT5/dEVg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.8.0/chart.min.js" integrity="sha512-sW/w8s4RWTdFFSduOTGtk4isV1+190E/GghVffMA9XczdJ2MDzSzLEubKAs5h0wzgSJOQTRYyaz73L3d6RtJSg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/powerbi-client/2.15.1/powerbi.min.js" integrity="sha512-OWIl8Xrlo8yQjWN5LcMz5SIgNnzcJqeelChqPMIeQGnEFJ4m1fWWn668AEXBrKlsuVbvDebTUJGLRCtRCCiFkg==" crossorigin="anonymous"></script>
@@ -20,7 +19,7 @@
   body {
     font: 400 15px Lato, sans-serif;
     line-height: 1.8;
-    color: #818181;
+    color: #0a0a0a;
   }
   h2 {
     font-size: 24px;
@@ -238,14 +237,14 @@
 <nav class="navbar navbar-default navbar-fixed-top">
   <div class="container">
     <div class="navbar-header">
-      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar" aria-label="Menu" >
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>   
         <span class="icon-bar"></span>                            
       </button>
       <div class="text-left">
-        <a class="navbar-brand"><strong>Cars Forever</strong></a>
+        <a class="navbar-brand" href="#myPage"><strong>Cars Forever</strong></a>
       </div>
      
     </div>
@@ -276,8 +275,8 @@
       <h2>Insert New Data</h2>
       <h4>Want to add new data to the Database?</h4>
     <br>
-          <a href="https://apps.powerapps.com/play/77e4777f-02f7-4c60-b990-5f7176959eec?tenantId=26de3d8f-79f7-4642-8217-bbd1e0bb3d8a" target="_blank">
-          <button  class="btn btn-lg">Click Here</button></a>
+          <a href="https://apps.powerapps.com/play/77e4777f-02f7-4c60-b990-5f7176959eec?tenantId=26de3d8f-79f7-4642-8217-bbd1e0bb3d8a" target="_blank" alt="Link to Power APP">
+          <button  class="btn btn-lg">Insert Data</button></a>
           
     </div>
     <br>
@@ -288,7 +287,7 @@
       <h2>Customize</h2>
       <p>Click here to browse for a new csv file</p>
     <form action='#' method="POST" enctype='multipart/form-data'>
-      <input type="file" accept=".csv" name='file' class="btn btn-lg"></input>
+     <label>Browse for csv file:<input type="file" accept=".csv" name='file' class="btn btn-lg"></label>
       <input type="hidden" name="switch" value="123">
       <button type="submit" class="btn btn-lg text-left">ADD NEW GRAPH</button>
 
@@ -331,17 +330,17 @@
            <div class="row text-center slideanim">
              <div class="col-sm-4">
                <div class="thumbnail">
-                 <img src="https://www.pixelstalk.net/wp-content/uploads/2016/08/Best-Cars-Full-HD-Photos-1920x1080.jpg" width="400" height="300">
+                 <img src="{{ url_for('static', filename='img/car1.jpg') }}"alt="car1" width="400" height="300">
                </div>
              </div>
              <div class="col-sm-4">
                <div class="thumbnail">
-                 <img src="https://th.bing.com/th/id/OIP.EpeD77byF2Buhf1P7YxnRwHaEc?pid=ImgDet&w=900&h=540&rs=1" alt="New York" width="400" height="300">
+                 <img src="{{ url_for('static', filename='img/car2.jpeg') }}" alt="New York" width="400" height="300">
                </div>
              </div>
              <div class="col-sm-4">
                <div class="thumbnail">
-                 <img src="https://th.bing.com/th/id/R.d3a51efc9603afa49dd078990cef8c13?rik=%2fNYDF%2fckiVTQZg&riu=http%3a%2f%2fwww.pixelstalk.net%2fwp-content%2fuploads%2f2016%2f06%2fHD-Sweet-Car-Backgrounds.jpg&ehk=yR3x1I698bUqYmMy0soi1SroN1NPF%2bIGEDAoz4r1cD4%3d&risl=&pid=ImgRaw&r=0" alt="San Francisco" width="400" height="300">
+                 <img src="{{ url_for('static', filename='img/car3.jpeg') }}" alt="San Francisco" width="400" height="300">
                </div>
              </div>
            </div>
@@ -380,10 +379,10 @@
         <div class="col-sm-4 col-xs-12">
           <div class="panel panel-default text-center">
             <div class="panel-heading">
-              <h5><strong>Model - XA Release Event</strong></h5>
+              <h4><strong>Model - XA Release Event</strong></h4>
             </div>
             <div class="panel-body">
-             <img src="https://i.pinimg.com/736x/38/11/b3/3811b3f35db821993117b3a2888be08d--lexus-ls-stage-design.jpg" width="300" height="200">
+             <img src="{{ url_for('static', filename='img/event1.jpg') }}" alt="event1" width="300" height="200">
               <p><strong>Italy</strong></p>
             </div>
             <div class="panel-footer">
@@ -395,10 +394,10 @@
         <div class="col-sm-4 col-xs-12">
           <div class="panel panel-default text-center">
             <div class="panel-heading">
-              <h5><strong>20 Year Anniversary</strong></h5>
+              <h4><strong>20 Year Anniversary</strong></h4>
             </div>
             <div class="panel-body">
-              <img src="https://images.cdn4.stockunlimited.net/preview1300/20-years-anniversary-label-with-ribbon_1399810.jpg" width="300" height="200">
+              <img src="{{ url_for('static', filename='img/event2.jpg') }}" alt="event2" width="300" height="200">
               <p><strong>Headquarters</strong></p>
             </div>
             <div class="panel-footer">
@@ -409,10 +408,10 @@
         <div class="col-sm-4 col-xs-12">
           <div class="panel panel-default text-center">
             <div class="panel-heading">
-              <h5><strong>Inaugaration of Manufacturing Unit</strong></h5>
+              <h4><strong>Inaugaration of Manufacturing Unit</strong></h4>
             </div>
             <div class="panel-body">
-              <img src="https://th.bing.com/th/id/R.40e8710c1f36af8aad58851fd3ce6b1d?rik=9KTzjMn%2fRQIjzg&riu=http%3a%2f%2fwww.mnkindustry.com%2fwp-content%2fuploads%2f2017%2f09%2fcar_industry-13.jpg&ehk=yHcuzzvllP9Q3PnnmjYCEgtJIzBtmcycUXYQ7puhKVM%3d&risl=&pid=ImgRaw&r=0" width="300" height="200">
+              <img src="{{ url_for('static', filename='img/event3.jpeg') }}" alt="event3" width="300" height="200">
               <p><strong>India</strong></p>
             </div>
             <div class="panel-footer">
@@ -442,7 +441,7 @@
   </ol>
 
   <!-- Wrapper for slides -->
-  <div class="carousel-inner" role="listbox">
+  <div class="carousel-inner" >
     <div class="item active">
       <h4>"Happy with experience and pleasure to drive in the city either highway, it has a maximum amount of leg space and very luxurious."<br><span>Michael John, Executive Manager, Comment Box</span></h4>
     </div>
@@ -455,12 +454,12 @@
   </div>
 
   <!-- Left and right controls -->
-  <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
-    <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+  <a class="left carousel-control" href="#myCarousel"  data-slide="prev">
+    <span class="glyphicon glyphicon-chevron-left"></span>
     <span class="sr-only">Previous</span>
   </a>
-  <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
-    <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+  <a class="right carousel-control" href="#myCarousel"  data-slide="next">
+    <span class="glyphicon glyphicon-chevron-right"></span>
     <span class="sr-only">Next</span>
   </a>
 </div>
@@ -481,13 +480,16 @@
     <div class="col-sm-7 slideanim">
       <div class="row">
         <div class="col-sm-6 form-group">
-          <input class="form-control" id="name" name="name" placeholder="Name" type="text" required>
+          <label>Name:</label>
+         <input class="form-control" id="name" name="name" placeholder="Name" type="text" required>
         </div>
         <div class="col-sm-6 form-group">
-          <input class="form-control" id="email" name="email" placeholder="Email" type="email" required>
+          <label>Email:</label>
+             <input class="form-control" id="email" name="email" placeholder="Email" type="email" required>
         </div>
       </div>
-      <textarea class="form-control" id="comments" name="comments" placeholder="Comment" rows="5"></textarea><br>
+      <label> Comments:</label>
+        <textarea class="form-control" id="comments" name="comments" placeholder="Comment" rows="5"></textarea><br>
       <div class="row">
         <div class="col-sm-12 form-group">
           <button class="btn btn-default pull-right" type="submit">Send</button>
@@ -561,30 +563,17 @@ const plugin = {
     ctx.restore();
   }
 };
-    
-    var le="{{list1}}";
-    var d=JSON.parse("{{list2}}");
-    
+  
+
     var x1="{{x1}}"
     var y1=JSON.parse("{{y1}}")
-   
     var x2="{{x2}}"
     var y2=JSON.parse("{{y2}}")
-
     var x3=JSON.parse("{{x3}}")
     var y3=JSON.parse("{{y3}}")
-  
     var x4="{{x4}}"
     var p=JSON.parse("{{p}}")
     var di=JSON.parse("{{di}}")
-    var l=le.split(",");
-for(let i=0; i<l.length; i++) {
-  var x=l[i].length
-  if(i==l.length-1)
-  l[i]=l[i].substring(6,x-6);
-  else
-  l[i]=l[i].substring(6,x-5);
-}
 var a=x1.split(",");
 for(let i=0; i<a.length; i++) {
   var x=a[i].length
@@ -730,36 +719,7 @@ for(let i=0; i<c.length; i++) {
         };
         var G4=new Chart(canvaselement4,config4);
 
-if(l.length){
-     
-      let canvaselement=document.getElementById("myChart2").getContext('2d');
-      
-      var config ={
-          type: "bar",
-          data: {
-              labels : l,
-              datasets: [{ data: d,
-              backgroundColor: [
-                      
-              '#26abff',
 
-                  ],
-          }]
-          },
-          plugins: [plugin],
-          options: {
-              plugins: {
-                  title: {
-                      display: true,
-                      text: "Graph"
-                  },
-      
-              },
-             
-          }
-        };
-        var myChart2=new Chart(canvaselement,config);
-    }
 </script>
 </body>
 </html>
