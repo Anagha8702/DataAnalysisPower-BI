@@ -1,9 +1,8 @@
-
+### REQUIREMENTS
 
 1. [Python 3](https://www.python.org/downloads/)
 
-2. IDE/code editor. We recommended using Visual Studio Code.
-
+2. pip3
 
 ### Set up Python Flask on a Windows machine
 
@@ -13,20 +12,23 @@
 
    `pip3 install -r requirements.txt`
 
+3. Open [AppOwnsData](./AppOwnsData) folder.
 
-### Run the application on localhost
+4. Run the following command in CMD/PowerShell to start the application.<br>
 
-1. Open IDE.
-
-2. Open [AppOwnsData](./AppOwnsData) folder.
-
-3. Run the following command in CMD/PowerShell to start the application.<br>
-
-   `flask run`
+   `flask run` or `py app.py` or `python3 app.py`
 
 5. Open **http://localhost:5000** in browser or follow the direction in the output log.
 
-> **Note:** Whenever you update the config file you must restart the app.
+6. To login to the website
+
+Username: user
+Password: user
+
+7. Microsoft ID to insert NEW DATA
+
+Username: PowerBIEMBEDGRP_CARS@123rvce.onmicrosoft.com
+Password: srikrishna123@
 
 #### Supported browsers:
 

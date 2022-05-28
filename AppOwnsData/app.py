@@ -18,6 +18,7 @@ app.config.from_object('config.BaseConfig')
 app.config['UPLOAD_FOLDER']='static/files'
 app.config['SALES']='static/sales'
 
+#function to get X-axis labels (text format)
 def Lab(df):
     Labels=[]
     for i in df.columns:
@@ -25,6 +26,7 @@ def Lab(df):
                 Labels.append(i)
     return Labels
 
+#function to get Y-axis labels (Number format)
 def Dat(df):
     Dataset=[]
     for i in df.columns:
@@ -43,7 +45,8 @@ def dict1(df):
 
 @app.route('/')
 def index():
-    return render_template('check.html')
+    #the login page is rendered onto browser
+    return render_template('index.html')
    
 @app.route('/getembedinfo', methods=['GET'])
 def get_embed_info():
@@ -67,14 +70,17 @@ def getfavicon():
 
 @app.route('/form_login', methods=['POST','GET'])
 def login():
-    print("Here")
+    #when POST request is made
     if request.method=='POST':
+        #when the user uploads a custom file
         if request.form['switch']=="123":
             f=request.files['file']
             print("hey i got in")
             global x1,y1,x2,y2,x3,y3,x4,p,di
+            #file is saved in static/files
             f.save(os.path.join(os.path.abspath(os.path.dirname(__file__)),app.config['UPLOAD_FOLDER'],f.filename)) # saving the file
             global df
+            #pandas dataframe is created
             df = pd.read_csv(os.path.join(os.path.abspath(os.path.dirname(__file__)),app.config['UPLOAD_FOLDER'],f.filename))
             Labels=Lab(df)
             global Dataset
@@ -88,14 +94,15 @@ def login():
             global le
             le=len(df)
             return render_template('temp1.html',df1=df,d=d,Labels=Labels,Dataset=Dataset,list1=list1,x1=x1,y1=y1,x2=x2,y2=y2,x3=x3,y3=y3,x4=x4,p=p,di=di)
+         #when the login button is clicked, main page gets loaded
         elif request.form['switch']=="456":
             name=request.form['u']
             psd1=request.form['v']
             print(name+" "+psd1)
             if name != "user":
-                return render_template('check.html',info="Invalid User!")
+                return render_template('index.html',info="Invalid User!")
             elif psd1 != "user":
-                return render_template('check.html',info="Invalid Password!")
+                return render_template('index.html',info="Invalid Password!")
             else:
                 df=[]
                 list1=[]
@@ -163,10 +170,12 @@ def login():
             
                 x4=l1
                 return render_template('temp.html',df1=df,list1=list1,list2=list2,x=x,x1=x1,y1=y1,x2=x2,y2=y2,x3=x3,y3=y3,x4=x4,p=p,di=di)
+        #back button is clicked
         elif request.form['switch']=='goback':
             list1=[]
             list2=[]
             return render_template('temp.html',df1=df,list1=list1,list2=list2,x1=x1,y1=y1,x2=x2,y2=y2,x3=x3,y3=y3,x4=x4,p=p,di=di)
+        #when button to create new graph is clicked
         elif request.form['switch']=="graph":
             X=request.form['Label']
             Y=request.form['Dataset']
@@ -191,6 +200,7 @@ def login():
                             l2[j]+=df.iat[i,d[Y]]
     
             return render_template('temp1.html',list1=l1,list2=l2,X=X,Y=Y,df1=df,x1=x1,y1=y1,x2=x2,y2=y2,x3=x3,y3=y3,x4=x4,p=p,di=di)
+    #when GET request is made
     else:
         df=[]
         list1=[]
