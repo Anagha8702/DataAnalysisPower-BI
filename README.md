@@ -20,10 +20,6 @@ https://carsforever.herokuapp.com/
 Username: user<br>
 Password: user
 
-2. Microsoft ID to insert NEW DATA
-
-Username: PowerBIEMBEDGRP_CARS@123rvce.onmicrosoft.com<br>
-Password: srikrishna123@
 
 ### Set up Python Flask on a Windows machine
 
